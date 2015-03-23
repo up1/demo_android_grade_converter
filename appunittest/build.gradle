@@ -1,0 +1,40 @@
+evaluationDependsOn(":app")
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+}
+
+apply plugin: 'java'
+
+test.reports.html.enabled = true
+test.reports.junitXml.enabled = true
+
+apply plugin: "jacoco"
+
+
+dependencies {
+    def androidModule = project(':app')
+
+    testCompile project(path: ':app', configuration: 'debugCompile')
+
+    def debugVariant = androidModule.android.applicationVariants.find({it.name == 'debug'})
+    testCompile debugVariant.javaCompile.classpath
+    testCompile debugVariant.javaCompile.outputs.files
+    testCompile files(androidModule.plugins.findPlugin("com.android.application").getBootClasspath())
+
+    testCompile 'junit:junit:4.+'
+    testCompile 'org.mockito:mockito-core:1.9.5'
+    testCompile('com.squareup:fest-android:1.0.+') { exclude module: 'support-v4' }
+}
+
+tasks.withType(Test) {
+    scanForTestClasses = false
+    include "**/*Should.class"
+    include "**/*Test.class"
+    include "**/*Tests.class"
+}
+
+
+apply from: '../scripts/jacoco-support.gradle'
