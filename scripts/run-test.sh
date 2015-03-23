@@ -4,4 +4,5 @@
 export JAVA_TOOL_OPTIONS='-Djava.awt.headless=true'
 
 ./gradlew :appunittest:test \
-          :appunittest:jacocoTestReport
+          :appunittest:jacocoTestReport \
+          :app:assembleRelease
