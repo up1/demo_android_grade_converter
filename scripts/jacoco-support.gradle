@@ -11,7 +11,7 @@ ext.coverageSourceDirs = [
 
 jacocoTestReport {
     reports {
-        xml.enabled = false
+        xml.enabled = true
         html.enabled = true
     }
     // class R is used, but usage will not be covered, so ignore this class from report
@@ -22,4 +22,4 @@ jacocoTestReport {
 
 // just clean up dashboard, following reports are not of interest
 test.reports.html.enabled = true
-test.reports.junitXml.enabled = false
+test.reports.junitXml.enabled = true
