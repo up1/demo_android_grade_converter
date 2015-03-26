@@ -1,1 +1,1 @@
-include ':app', ':appunittest'
+include ':app', ':appunittest', ':appespresso'
